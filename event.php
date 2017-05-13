@@ -5,6 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -36,9 +40,7 @@
 			  <!-- <span class="brand-name">Leisure Club</span> -->
 		  </a>
 	    </div>
-
-
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
 	        <li class="active"><a href="#">Profile<span class="sr-only">(current)</span></a></li>
 	        <li><a href="#">Find Event</a></li>
@@ -66,8 +68,20 @@
 	                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 	                            <input id="password" type="password" class="form-control" name="password" value="" placeholder="Password">
 	                        </div> -->
-
-	                        <button type="submit" class="btn btn-primary">Logout</button>
+															<div class="btn-group">
+														  <button type="button" class="btn btn-primary">NAME USER</button>
+														  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+														 <span class="caret"></span>
+														 <!-- <span class="sr-only">Меню с переключением</span> -->
+														 </button>
+														  <ul class="dropdown-menu" role="menu">
+														    <li><a href="#">Редактировать профиль</a></li>
+														    <li><a href="#">Помощь</a></li>
+														    <li class="divider"></li>
+														    <li><a href="#">Выйти</a></li>
+														  </ul>
+														</div>
+	                        <!-- <button type="submit" class="btn btn-primary">Logout</button> -->
 	       </form>
 	    </div>
 	  </div>
