@@ -10,6 +10,15 @@
  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/index.css">
 	<title>Leisure Club</title>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7AXb4WhqnAjNyJyB-cXSPU51kxmeq_GU"></script>
+	<script src="gmaps.js"></script>
+
+	<style>
+				#map {
+				 height: 325px;
+				 width: 100%;
+				}
+		</style>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -83,7 +92,35 @@
 						2
 					</div>
 					<div class="panel-body">
-						tut budet mapa
+						<div id="map"></div>
+			<script>
+				var map = new GMaps({
+					el: '#map',
+					lat: 50.448069,
+					lng:  30.529913
+				});
+			</script>
+		<script>
+		GMaps.geolocate({
+	 success: function(position) {
+		 map.setCenter(position.coords.latitude, position.coords.longitude);
+		map.addMarker({
+				 lat: position.coords.latitude,
+				 lng: position.coords.longitude,
+				 title: 'location',
+				 infoWindow: {
+					content: '<p>My location!</p>'
+				 }
+	});
+	},
+	 error: function(error) {
+		 alert('Geolocation failed: '+error.message);
+	 },
+	 not_supported: function() {
+		 alert("Your browser does not support geolocation");
+	 }
+ });
+ </script>
 					</div>
 				</div>
 			</div>
