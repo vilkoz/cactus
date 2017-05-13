@@ -18,6 +18,18 @@ try
     case 'register':
       $resp = register($_POST['login'], $_POST['pass']);
       break;
+    case 'logout':
+      $resp = logout();
+      break;
+    case 'list_interests':
+      $resp = list_interests();
+      break;
+    case 'add_preference':
+      $resp = edit_preference("add", $_POST['idi']);
+      break;
+    case 'del_preference':
+      $resp = edit_preference("del", $_POST['idi']);
+      break;
     default:
       throw new Exception("Wrong action");
   }

@@ -48,6 +48,9 @@ if (isset($error))
       // Site::viewAllGames();
        ?>
      </div>
+     <form action="ajax.php?action=list_interests" method="post">
+       <input type="submit" name="submit" value="OK">
+     </form>
      <br>
      <br>
      <div class="chat">

@@ -51,6 +51,12 @@ function register($login, $pass)
   }
 }
 
+function check_logged()
+{
+  if (!key_exists('login', $_SESSION) || !isset($_SESSION['login']))
+    throw new Exception("You are not logged");
+}
+
 function get_uid()
 {
   if (!key_exists('login', $_SESSION) || !isset($_SESSION['login']))
@@ -58,17 +64,33 @@ function get_uid()
   if (!$res = DB::query("SELECT `id` FROM `users` WHERE `login` LIKE BINARY '"
                           . DB::esc($_SESSION['login']) . "';"))
   {
-    throw new Exception("DATABASE ERROR IN get_uid");
+    throw new Exception("DATABASE ERROR IN get_uid". DB::esc($_SESSION['login']));
   }
-  if ($res->num_rows != 0)
+  if ($res->num_rows == 0)
   {
-    throw new Exception("User not found!");
+    throw new Exception("User not found!".DB::esc($_SESSION['login']));
+  }
+  return ($res->fetch_assoc()['id']);
+}
+
+function get_interest_id($name)
+{
+  check_logged();
+  if (!$res = DB::query("SELECT `id` FROM `interests` WHERE `name` LIKE BINARY '"
+                          . DB::esc($name) . "';"))
+  {
+    throw new Exception("DATABASE ERROR IN get_uid". DB::esc($_SESSION['login']));
+  }
+  if ($res->num_rows == 0)
+  {
+    throw new Exception("interest not found");
   }
   return ($res->fetch_assoc()['id']);
 }
 
 function edit_profile($name, $surname, $bd, $gender, $number)
 {
+  check_logged();
   $uid = get_uid();
   if (!$res = DB::query("UPDATE `users` SET `name` = '".DB::esc($name).
   "', `surname` = '".DB::esc($surname).
@@ -83,6 +105,7 @@ function edit_profile($name, $surname, $bd, $gender, $number)
 
 function edit_preference($action, $idi)
 {
+  check_logged();
   $uid = get_uid();
   if ($action == "add")
   {
@@ -135,12 +158,45 @@ function edit_preference($action, $idi)
   }
 }
 
+function list_interests()
+{
+  check_logged();
+  $uid = get_uid();
+  if (!$res = DB::query("SELECT * FROM `preferences`
+    WHERE `idu` = " . intval($uid) . ";"))
+  {
+    throw new Exception("DATABASE ERROR IN list interests");
+  }
+  if ($res->num_rows == 0)
+  {
+    throw new Exception("No preferences found");
+  }
+  $user_prefs = ($res->fetch_assoc());
+  if (!$res = DB::query("SELECT `id`, `name` FROM `interests`;"))
+  {
+    throw new Exception("DATABASE ERROR IN list interests");
+  }
+  if ($res->num_rows == 0)
+  {
+    throw new Exception("No interests found");
+  }
+  $return = "";
+  while ($new = $res->fetch_assoc())
+  {
+    $name = $new['name'];
+    $id = $new['id'];
+    $return .= "<div class='list_inter'>".$name."<input type='submit' value='".$id."'></div></br>";
+  }
+  return ($return);
+}
+
 /*
 ** geopos vulnerable for sql injection
 */
 
 function add_event($idp, $date, $geopos, $descr, $icon)
 {
+  check_logged();
   $uid = get_uid();
   $time = date("Y-m-d H:i:s", time());
   if ($idp == 0)
