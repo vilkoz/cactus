@@ -48,7 +48,12 @@ if (isset($error))
       // Site::viewAllGames();
        ?>
      </div>
+       <b>list interests</b>
      <form action="ajax.php?action=list_interests" method="post">
+       <input type="submit" name="submit" value="OK">
+     </form>
+       <b>list preferences</b>
+     <form action="ajax.php?action=list_preferences" method="post">
        <input type="submit" name="submit" value="OK">
      </form>
      <br>

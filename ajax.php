@@ -24,6 +24,9 @@ try
     case 'list_interests':
       $resp = list_interests();
       break;
+    case 'list_preferences':
+      $resp = list_preferences();
+      break;
     case 'add_preference':
       $resp = edit_preference("add", $_POST['idi']);
       break;

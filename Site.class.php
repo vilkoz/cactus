@@ -162,7 +162,7 @@ function list_interests()
 {
   check_logged();
   $uid = get_uid();
-  if (!$res = DB::query("SELECT * FROM `preferences`
+  if (!$res = DB::query("SELECT `idi` FROM `preferences`
     WHERE `idu` = " . intval($uid) . ";"))
   {
     throw new Exception("DATABASE ERROR IN list interests");
@@ -171,7 +171,11 @@ function list_interests()
   {
     throw new Exception("No preferences found");
   }
-  $user_prefs = ($res->fetch_assoc());
+  $user_prefs = array();
+  while ($add = ($res->fetch_assoc()))
+  {
+    $user_prefs[] = $add['idi'];
+  }
   if (!$res = DB::query("SELECT `id`, `name` FROM `interests`;"))
   {
     throw new Exception("DATABASE ERROR IN list interests");
@@ -180,14 +184,40 @@ function list_interests()
   {
     throw new Exception("No interests found");
   }
-  $return = "";
+  // $return = "";
   while ($new = $res->fetch_assoc())
   {
     $name = $new['name'];
     $id = $new['id'];
-    $return .= "<div class='list_inter'>".$name."<input type='submit' value='".$id."'></div></br>";
+    if (!in_array($id, $user_prefs))
+      $return .= "<div class='list_inter'>".$name."<input type='submit' value='".$id."'></div></br>";
   }
   return ($return);
+}
+
+function list_preferences()
+{
+  check_logged();
+  $uid = get_uid();
+  if (!$res = DB::query("SELECT `interests`.`id`, `interests`.`name`
+    FROM `preferences`
+    JOIN `interests` ON `preferences`.`idi` = `interests`.`id`
+    WHERE `preferences`.`idu` = ".intval($uid).";"))
+  {
+    throw new Exception("DATABASE ERROR IN list preferences");
+  }
+  if ($res->num_rows == 0)
+  {
+    throw new Exception("No preferences found");
+  }
+  $return = "";
+  while ($prefs = $res->fetch_assoc())
+  {
+    $name = $prefs['name'];
+    $id = $prefs['id'];
+    $return .= "<div class='list_pref'>".$name."<input type='submit' value='".$id."'></div></br>";
+  }
+  return $return;;
 }
 
 /*
