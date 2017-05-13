@@ -2,7 +2,7 @@
 session_start();
 require_once 'Site.class.php';
 require_once 'DB.class.php';
-require_once 'Chat.class.php';
+// require_once 'Chat.class.php';
 try
 {
   DB::init();

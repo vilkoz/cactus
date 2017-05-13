@@ -3,13 +3,13 @@ require_once 'DB.class.php';
 /**
  *
  */
-public static function login($login, $pass)
+function login($login, $pass)
 {
   if (!$login || !$pass)
     throw new Exception("Please fill all fields");
   if (!$res = DB::query("SELECT * FROM `users` WHERE `login` LIKE BINARY '"
                           . DB::esc($login) . "' AND `pass` LIKE BINARY '"
-                          . DB::esc(Site::hash($pass)) . "';"))
+                          . DB::esc(hash_my($pass)) . "';"))
   {
     throw new Exception("DATABASE ERROE IN LOGIN");
   }
@@ -19,12 +19,12 @@ public static function login($login, $pass)
   return ("Successfull login");
 }
 
-public static function hash($str)
+function hash_my($str)
 {
   return hash("gost", $str."my_nice sault");
 }
 
-public static function register($login, $pass)
+function register($login, $pass)
 {
   if (!$login || !$pass)
     throw new Exception("Please fill all fields");
@@ -41,7 +41,7 @@ public static function register($login, $pass)
 
   if (!$res = DB::query(" INSERT INTO `users` (`id`, `login`, `pass`)
                           VALUES (NULL, '" . DB::esc($login) . "', '" .
-                          DB::esc(Site::hash($pass)) . "');"))
+                          DB::esc(hash_my($pass)) . "');"))
   {
     throw new Exception("DATABASE ERROE IN register");
   }
@@ -51,7 +51,7 @@ public static function register($login, $pass)
   }
 }
 
-public static function get_uid()
+function get_uid()
 {
   if (!key_exists('login', $_SESSION) || !isset($_SESSION['login']))
     throw new Exception("You are not logged");
@@ -67,29 +67,33 @@ public static function get_uid()
   return ($res->fetch_assoc()['id']);
 }
 
-public static function edit_profile($name, $surname, $bd, $gender, $number)
+function edit_profile($name, $surname, $bd, $gender, $number)
 {
-  $uid = self::get_uid();
-  if (!$res = DB::query("UPDATE `id` FROM `users` WHERE `login` LIKE BINARY '"
-                          . DB::esc($_SESSION['login']) . "';"))
+  $uid = get_uid();
+  if (!$res = DB::query("UPDATE `users` SET `name` = '".DB::esc($name).
+  "', `surname` = '".DB::esc($surname).
+  "', `gender` = '".DB::esc($gender).
+  "', `number` = '".DB::esc($number)
+  ."' WHERE `users`.`id` = ".$uid.";"))
   {
-    throw new Exception("DATABASE ERROR IN get_uid");
+    throw new Exception("DATABASE ERROR IN edit_profile");
   }
+  return ("Successfully updated!");
 }
 
-public static function edit_preference($action, $pref_name)
+function edit_preference($action, $pref_name)
 {
 }
 
-public static function add_place($name, $desc, $geopos, $site, $rank)
+function add_place($name, $desc, $geopos, $site, $rank)
 {
 }
 
-public static function edit_place_tags($value='')
+function edit_place_tags($value='')
 {
 }
 
-public static function logout()
+function logout()
 {
   header("Location: index.php");
   if (key_exists('login', $_SESSION))

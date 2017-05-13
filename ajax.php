@@ -2,7 +2,7 @@
 error_reporting(E_ALL ^ E_NOTICE);
 require_once 'DB.class.php';
 require_once 'Site.class.php';
-require_once 'Chat.class.php';
+// require_once 'Chat.class.php';
 session_start();
 
 try
