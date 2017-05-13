@@ -81,8 +81,59 @@ function edit_profile($name, $surname, $bd, $gender, $number)
   return ("Successfully updated!");
 }
 
-function edit_preference($action, $pref_name)
+function edit_preference($action, $idi)
 {
+  $uid = get_uid();
+  if ($action == "add")
+  {
+    if (!$res = DB::query("SELECT * FROM `preferences` WHERE `idu` LIKE '"
+                            . $uid . "';"))
+    {
+      throw new Exception("DATABASE ERROR IN edit_pref");
+    }
+    if ($res->num_rows != 0)
+    {
+      if (!$res = DB::query(" INSERT INTO `preferences` (`id`, `idu`, `idi`)
+                              VALUES (NULL, '" . $uid . "', '" .
+                              intval($idi) . "');"))
+      {
+        throw new Exception("DATABASE ERROE IN edit_prefr");
+      }
+      if ($res == True)
+      {
+        return "Added preference!";
+      }
+    }
+    else
+    {
+        throw new Exception("preference already exists");
+    }
+  }
+  else if ($action == "del")
+  {
+    if (!$res = DB::query("SELECT * FROM `preferences` WHERE `idu` LIKE '"
+                            . $uid . "';"))
+    {
+      throw new Exception("DATABASE ERROR IN edit_pref");
+    }
+    if ($res->num_rows != 0)
+    {
+      throw new Exception("You do not have this preference!");
+    }
+    else
+    {
+      if (!$res = DB::query("DELETE FROM `preferences` WHERE `idi` = ".
+        intval($idi).""))
+      {
+        throw new Exception("DATABASE ERROE IN edit_prefr");
+      }
+      if ($res == True)
+      {
+        return "Deleted preference!";
+      }
+    }
+
+  }
 }
 
 function add_place($name, $desc, $geopos, $site, $rank)
