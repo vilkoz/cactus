@@ -135,8 +135,50 @@ function edit_preference($action, $idi)
   }
 }
 
-function add_place($name, $desc, $geopos, $site, $rank)
+/*
+** geopos vulnerable for sql injection
+*/
+
+function add_event($idp, $date, $geopos, $descr, $icon)
 {
+  $uid = get_uid();
+  $time = date("Y-m-d H:i:s", time());
+  if ($idp == 0)
+  {
+      if (!$res = DB::query(" INSERT INTO `events` (`id`, `idp`, `date`, `geopos`, `icon`, `description`, `cr_id`)
+                              VALUES (NULL, 0, 0, '".$time."', '".$geopos."', '".DB::esc($icon)."', '".DB::esc($descr)."', ".$uid.");"))
+      {
+        throw new Exception("DATABASE ERROE IN edit_prefr");
+      }
+      if ($res == True)
+      {
+        return "Added event!";
+      }
+  }
+  else
+  {
+    if (!$res = DB::query("SELECT `description`,`geopos` FROM `preferences` WHERE `idu` LIKE '"
+                            . $uid . "';"))
+    {
+      throw new Exception("DATABASE ERROR IN edit_pref");
+    }
+    if ($res->num_rows != 0)
+    {
+      throw new Exception("No such event!");
+    }
+    $arr = $res->fetch_assoc();
+    $descr = $arr['description'];
+    $geopos = $arr['geopos'];
+    if (!$res = DB::query(" INSERT INTO `events` (`id`, `idp`, `date`, `geopos`, `icon`, `description`, `cr_id`)
+                            VALUES (NULL, 0, 0, '".$time."', '".$geopos."', '".DB::esc($icon)."', '".DB::esc($descr)."', ".$uid.");"))
+    {
+      throw new Exception("DATABASE ERROE IN edit_prefr");
+    }
+    if ($res == True)
+    {
+      return "Added event!";
+    }
+  }
 }
 
 function edit_place_tags($value='')

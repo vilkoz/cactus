@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Май 13 2017 г., 18:17
+-- Время создания: Май 13 2017 г., 18:36
 -- Версия сервера: 10.1.21-MariaDB
 -- Версия PHP: 5.6.30
 
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `events` (
   `id` int(16) NOT NULL,
   `idp` int(16) NOT NULL,
-  `date` date NOT NULL,
+  `date` datetime NOT NULL,
   `geopos` varchar(32) NOT NULL,
   `description` text NOT NULL,
   `idu` int(16) NOT NULL,
