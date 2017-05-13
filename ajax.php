@@ -21,20 +21,11 @@ try
     case 'logout':
       $resp = Site::logout();
       break;
-    case 'newGame':
-      $resp = Site::newGame($_POST['num_players']);
-      break;
-    case 'viewGames':
-      $resp = Site::viewAllGames();
-      break;
     case 'join':
       $resp = Site::joinGame($_POST['join']);
       break;
     case 'join':
       $resp = Site::joinGame($_POST['join']);
-      break;
-    case 'delGame':
-      $resp = Site::delGame($_SESSION['gid']);
       break;
     case 'loadMsg':
       $resp = Chat::loadMsg();
