@@ -85,6 +85,19 @@ body {
 	padding-left: 10px;
 }
 
+.avsoon {
+	font-size: 1.2em;
+	width: 100%;
+	text-align: center;
+	display: block;
+}
+
+.app {
+	width: 220px;
+	display: block;
+	margin: 0 auto;
+}
+
 @media(min-width:768px) {
 	.wrap {
 		min-width: 962px;
