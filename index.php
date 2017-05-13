@@ -23,7 +23,10 @@ try
     if (key_exists('login', $_SESSION))
       echo "Welcome, <b>{$_SESSION['login']}</b><br/>";
 ?>
-<b><?=$error ?></b>
+<b><?php
+if (isset($error))
+  echo $error;
+?></b>
      <b>login</b>
      <form action="ajax.php?action=login" method="post">
        <input type="text" name="login" value="">

@@ -41,7 +41,7 @@ class Site
       throw new Exception("User alredy exists");
     }
 
-    if (!$res = DB::query(" INSERT INTO `users` (`uid`, `login`, `pass`)
+    if (!$res = DB::query(" INSERT INTO `users` (`id`, `login`, `pass`)
                             VALUES (NULL, '" . DB::esc($login) . "', '" .
                             DB::esc(Site::hash($pass)) . "');"))
     {
@@ -51,6 +51,38 @@ class Site
     {
       return "Successfull registration";
     }
+  }
+
+  public static function get_uid()
+  {
+    if (!key_exists('login', $_SESSION) || !isset($_SESSION['login']))
+      throw new Exception("You are not logged");
+    if (!$res = DB::query("SELECT `id` FROM `users` WHERE `login` LIKE BINARY '"
+                            . DB::esc($_SESSION['login']) . "';"))
+    {
+      throw new Exception("DATABASE ERROR IN get_uid");
+    }
+    if ($res->num_rows != 0)
+    {
+      throw new Exception("User not found!");
+    }
+    return ($res->fetch_assoc()['id']);
+  }
+
+  public static function edit_profile($name, $surname, $bd, $gender, $number)
+  {
+  }
+
+  public static function edit_preference($action, $pref_name)
+  {
+  }
+
+  public static function add_place($name, $desc, $geopos, $site, $rank)
+  {
+  }
+
+  public static function edit_place_tags($value='')
+  {
   }
 
   public static function logout()
