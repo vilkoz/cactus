@@ -132,7 +132,6 @@ function edit_preference($action, $idi)
         return "Deleted preference!";
       }
     }
-
   }
 }
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Май 13 2017 г., 15:17
+-- Время создания: Май 13 2017 г., 18:17
 -- Версия сервера: 10.1.21-MariaDB
 -- Версия PHP: 5.6.30
 
@@ -21,6 +21,22 @@ SET time_zone = "+00:00";
 --
 -- База данных: `cactus`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `events`
+--
+
+CREATE TABLE `events` (
+  `id` int(16) NOT NULL,
+  `idp` int(16) NOT NULL,
+  `date` date NOT NULL,
+  `geopos` varchar(32) NOT NULL,
+  `description` text NOT NULL,
+  `idu` int(16) NOT NULL,
+  `icon` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -120,8 +136,22 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Дамп данных таблицы `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `surname`, `login`, `pass`, `bd`, `gender`, `number`) VALUES
+(3, '', '', 'gopa1', '13cc7da091d7ca1741da9dea69ed43548caa85a6a7f4420efc754a734e97ab65', '0000-00-00', 0, ''),
+(4, '', '', '123', '7e891e804dba67b0761b4a8b7789799b7d552ae0cf5a9a99ccc63ddb0761a477', '0000-00-00', 0, '');
+
+--
 -- Индексы сохранённых таблиц
 --
+
+--
+-- Индексы таблицы `events`
+--
+ALTER TABLE `events`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `interests`
@@ -170,6 +200,11 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT для таблицы `events`
+--
+ALTER TABLE `events`
+  MODIFY `id` int(16) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT для таблицы `interests`
 --
 ALTER TABLE `interests`
@@ -188,7 +223,7 @@ ALTER TABLE `place_tags`
 -- AUTO_INCREMENT для таблицы `preferences`
 --
 ALTER TABLE `preferences`
-  MODIFY `id` int(16) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT для таблицы `prices`
 --
@@ -203,7 +238,7 @@ ALTER TABLE `ranks`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT;COMMIT;
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
