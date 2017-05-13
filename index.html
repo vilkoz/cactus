@@ -1,50 +1,66 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>lc</title>
-    <link rel="stylesheet" href="bt/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bt/css/bootstrap-theme.min.css">
-    <script src="bt/js/bootstrap.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7AXb4WhqnAjNyJyB-cXSPU51kxmeq_GU"></script>
-	<script src="gmaps.js"></script>
+    <title>OpenStreetMap Reprojection</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.1.1/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.1.1/build/ol.js"></script>
+  </head>
+  <body>
+    <div id="map" class="map"></div>
+    <script>
+      var map = new ol.Map({
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          })
+        ],
+        target: 'map',
+        view: new ol.View({
+		//	center:[30,50],
+          center: ol.proj.transform([30,50], 'EPSG:4326', 'EPSG:3857'),
+          zoom: 5
+        })
+      });
+    </script>
+  </body>
+</html>
+<!-- <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>karta</title>
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
+  integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
+  crossorigin=""/>
+  		<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
+  integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
+  crossorigin=""></script>
+
+  <script src='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.css' rel='stylesheet' />
+
+  	<script src="leaflet/leaflet.js"></script>
 
 	<style>
-       #map {
+       #mapid {
         height: 500px;
         width: 50%;
        }
     </style>
-  </head>
-  <body>
-	  <div id="map"></div>
-	    <script>
-	      var map = new GMaps({
-	        el: '#map',
-	        lat: 50.448069,
-	        lng:  30.529913
-	      });
-	    </script>
-		<script>
-		GMaps.geolocate({
-  success: function(position) {
-    map.setCenter(position.coords.latitude, position.coords.longitude);
-	map.addMarker({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-        title: 'location',
-        infoWindow: {
-          content: '<p>My location!</p>'
-        }
-	});
-  },
-  error: function(error) {
-    alert('Geolocation failed: '+error.message);
-  },
-  not_supported: function() {
-    alert("Your browser does not support geolocation");
-  }
-});
-</script>
-  </body>
-</html>
+	</head>
+	<body>
+
+		 <div id="mapid"></div>
+		 <script>
+		 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+		 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={pk.eyJ1IjoicmF6b3JlZGdlIiwiYSI6ImNqMm5odDBuaDAwMnUzM2xraXEyc3BlaXgifQ.HnSn8HwWuhAxT-F3Lk8hNg}', {
+		     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+		     maxZoom: 18,
+		     id: 'your.mapbox.project.id',
+		     accessToken: 'pk.eyJ1IjoicmF6b3JlZGdlIiwiYSI6ImNqMm5odDBuaDAwMnUzM2xraXEyc3BlaXgifQ.HnSn8HwWuhAxT-F3Lk8hNg'
+		 }).addTo(mymap);
+		 </script>
+	</body>
+</html> -->
