@@ -9,13 +9,9 @@ class DB
 
   private function __construct()
   {
-    try
-    {
-      $dbOptions = unserialize(file_get_contents('mysql.cfg'));
-    } catch (Exception $e)
-    {
+    if (!file_exists('mysql.cfg'))
       throw new Exception("Please edit and run writearray.php to configure database connection");
-    }
+    $dbOptions = unserialize(file_get_contents('mysql.cfg'));
     $this->mysqli = new mysqli(
       $dbOptions['db_host'],
       $dbOptions['db_user'],

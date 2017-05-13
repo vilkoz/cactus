@@ -3,7 +3,14 @@ session_start();
 require_once 'Site.class.php';
 require_once 'DB.class.php';
 require_once 'Chat.class.php';
-DB::init();
+try
+{
+  DB::init();
+} catch (Exception $e)
+{
+  $error = $e->getMessage()."</br>";
+}
+
  ?>
  <!DOCTYPE html>
  <html>
@@ -16,6 +23,7 @@ DB::init();
     if (key_exists('login', $_SESSION))
       echo "Welcome, <b>{$_SESSION['login']}</b><br/>";
 ?>
+<b><?=$error ?></b>
      <b>login</b>
      <form action="ajax.php?action=login" method="post">
        <input type="text" name="login" value="">
