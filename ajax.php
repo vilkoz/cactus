@@ -13,31 +13,14 @@ try
   switch($_GET['action'])
   {
     case 'login':
-      $resp = Site::login($_POST['login'], $_POST['pass']);
+      $resp = login($_POST['login'], $_POST['pass']);
       break;
     case 'register':
-      $resp = Site::register($_POST['login'], $_POST['pass']);
-      break;
-    case 'logout':
-      $resp = Site::logout();
-      break;
-    case 'join':
-      $resp = Site::joinGame($_POST['join']);
-      break;
-    case 'join':
-      $resp = Site::joinGame($_POST['join']);
-      break;
-    case 'loadMsg':
-      $resp = Chat::loadMsg();
-      break;
-    case 'sendMsg':
-      $resp = Chat::sendMsg($_GET['text']);
+      $resp = register($_POST['login'], $_POST['pass']);
       break;
     default:
       throw new Exception("Wrong action");
   }
-
-  // echo json_encode($resp);
   echo ($resp);
 }
 catch (Exception $e)
