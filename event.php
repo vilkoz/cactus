@@ -427,7 +427,7 @@
        });
 // reloadmsg();
 // putAddress();
-// window.setInterval(putAddress(), 300);
+window.setInterval(putAddress(), 300);
       //  setInterval(reloadmsg, 2500);
 
   });
