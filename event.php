@@ -58,7 +58,7 @@
 	    </div>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
-	        <li ><a href="#">Profile<span class="sr-only">(current)</span></a></li>
+	        <li ><a href="profile.php">Profile<span class="sr-only">(current)</span></a></li>
 	        <li class="active"><a href="#">Find Event</a></li>
 			<li><a href="#">About us</a></li>
 	        <!-- <li class="dropdown">
@@ -118,7 +118,7 @@
 					<div class="panel-body">
 						<div id="map"></div>
 			<script>
-			var mymap2 = L.map('map').setView([51.44, 11.42], 13);
+			var mymap2 = L.map('map').setView([50.448069, 30.529913], 13);
 			L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicmF6b3JlZGdlIiwiYSI6ImNqMm8wdW1vMjAwMmsyd2xrazdyY3FvcTYifQ.LGyAHAS_AxFwUh4ytOwC5Q', {
 				maxZoom: 18,
 				attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
@@ -127,9 +127,9 @@
 				id: 'mapbox.streets'
 }).addTo(mymap2);
  </script>
- 					<div><br>Пивас в падике</div>
-					<div><br>алко-пати, активный досуг</div>
-					<div><br> 9 мая в 14:48</div>
+ 					<div><br>Hackaton Cactus</div>
+					<div><br>g1 g2</div>
+					<div><br>2017-05-16 00:00:00</div>
 					</div>
 				</div>
 			</div>
@@ -145,7 +145,7 @@
 					<div class="panel-body">
 						<div id="map1"></div>
 			<script>
-			var mymap2 = L.map('map1').setView([50.44, 11.42], 13);
+			var mymap2 = L.map('map1').setView([50.467885, 30.517541], 13);
 			L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicmF6b3JlZGdlIiwiYSI6ImNqMm8wdW9wOTAwMjEzM3Fza3VoNnR5aHoifQ.JUhlhRoT5CkCT3FrO64uoQ', {
 				maxZoom: 18,
 				attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
@@ -154,9 +154,9 @@
 				id: 'mapbox.streets'
 }).addTo(mymap2);
  </script>
-					 <div><br>Пивас в падике</div>
-					 <div><br>алко-пати, активный досуг</div>
-					 <div><br> 9 мая в 14:48</div>
+					 <div><br>Yanky go home</div>
+					 <div><br>g1 g2</div>
+					 <div><br>2017-05-16 00:00:00</div>
 					</div>
 				</div>
 			</div>
@@ -167,12 +167,12 @@
 				<div style="padding-left: 4%; padding-right: 4%">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						2
+						3
 					</div>
 					<div class="panel-body">
 						<div id="map2"></div>
 			<script>
-				var mymap3 = L.map('map2').setView([25.44, 10.42], 13);
+				var mymap3 = L.map('map2').setView([35.448533, 55.432134], 13);
 				L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicmF6b3JlZGdlIiwiYSI6ImNqMm8wdXIzNjAwMXEzM282MzZycGx4dTEifQ.5rIvZiASyO49-pKLTNwNuQ', {
 					maxZoom: 18,
 					attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
@@ -181,9 +181,9 @@
 					id: 'mapbox.streets'
 }).addTo(mymap3);
  			</script>
-						 <div><br>Пивас в падике</div>
-						<div><br>алко-пати, активный досуг</div>
-						<div><br> 9 мая в 14:48</div>
+						 <div><br>Check project</div>
+						<div><br>g1 g2</div>
+						<div><br>2017-05-14 08:00:00</div>
 					</div>
 				</div>
 			</div>
@@ -208,10 +208,10 @@
 		<div style="padding-left: 6%">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				3
+				List events
 			</div>
-			<div class="panel-body">
-				ubey menya
+			<div class="panel-body" id="msg_list">
+				Loading...
 			</div>
 		</div>
 	</div>
@@ -221,7 +221,7 @@
 		<div style="padding-right: 6%">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				Vernite 100
+				Events on map
 			</div>
 			<div id="mapid" style="height: 357px"></div>
 			<script>
@@ -281,7 +281,7 @@
 			    iconSize:     [20, 35],
 			});
 				L.marker([latit, longit], {icon: greenIcon}).addTo(mymap)
-					.bindPopup("<b>Hello world!</b><br />Петушня сидит тут. <a href='http://google.com'>OpenStreetMap</a>").openPopup();
+					.bindPopup("<b>Hello world!</b><br />You are here <a href='http://google.com'>OpenStreetMap</a>").openPopup();
 				var popup = L.popup();
 				function onMapClick(e) {
 					popup
@@ -298,7 +298,7 @@
 
 
 
-	<div class="col-md-1">
+	<div class="col-md-1" >
 	</div>
 </div>
 </div>
@@ -334,5 +334,38 @@
 	<p class="pull-left">LC Leisure Club all rights reserved</p>
 </div>
 </div>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+	<script type="text/javascript">
+     $(document).ready(function(){
+       function reloadmsg() {
+         $.ajax({
+           url: "lol.php",
+           success: function(data){
+             $("#msg_list").html(data);
+           }
+         });
+       }
+
+       $("#send").click(function(){
+         var value = $("#msg").val();
+         $("#msg").val("");
+         $.ajax({
+           type:"GET",
+           url: "ajax.php",
+           data: "action=sendMsg&text=" + value ,
+           success: function(data){
+             $("#msg_list").html(data);
+           }
+         });
+        return false;
+       });
+
+       setInterval(reloadmsg, 2500);
+
+  });
+	</script>
 </body>
 <html>

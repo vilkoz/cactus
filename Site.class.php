@@ -168,10 +168,10 @@ function list_interests()
   {
     throw new Exception("DATABASE ERROR IN list interests");
   }
-  if ($res->num_rows == 0)
-  {
-    throw new Exception("No preferences found");
-  }
+  // if ($res->num_rows == 0)
+  // {
+  //   throw new Exception("No preferences found");
+  // }
   $user_prefs = array();
   while ($add = ($res->fetch_assoc()))
   {

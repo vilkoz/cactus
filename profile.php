@@ -106,7 +106,7 @@ try
 	                            <input id="password" type="password" class="form-control" name="password" value="" placeholder="Password">
 	                        </div> -->
 															<div class="btn-group">
-														  <button type="button" class="btn btn-primary">NAME USER</button>
+														  <button type="button" class="btn btn-primary"><?=$_SESSION['login']?></button>
 														  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 														 <span class="caret"></span>
 														 <!-- <span class="sr-only">Меню с переключением</span> -->
@@ -115,7 +115,7 @@ try
 														    <li><a href="#">Редактировать профиль</a></li>
 														    <li><a href="#">Помощь</a></li>
 														    <li class="divider"></li>
-														    <li><a href="#">Выйти</a></li>
+														    <li><a href="logout.php">Выйти</a></li>
 														  </ul>
 														</div>
 	                        <!-- <button type="submit" class="btn btn-primary">Logout</button> -->
