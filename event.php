@@ -227,11 +227,18 @@
 			<div id="mapid" style="height: 357px; width: 100%" class="col-lg-5">
 			</div>
 			<script>
+			 function httpGet(theUrl)
+			 {
+				 var xmlHttp = new XMLHttpRequest();
+				 xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+				 xmlHttp.send( null );
+				 return xmlHttp.responseText;
+			 }
 				var mymap;
 			  navigator.geolocation.getCurrentPosition(function(position) {
 			    latit = position.coords.latitude;
 			    longit = position.coords.longitude;
-				var place = new L.LayerGroup();
+				// var place = new L.LayerGroup();
 
 				var place_ic = L.icon({
 			    	iconUrl: 'png/place.png',
@@ -241,23 +248,42 @@
 					iconUrl: 'png/action.png',
 					iconSize:     [20, 35],
 				});
-
-				L.marker([latit + 0.015, longit + 0.015], {icon: action}).bindPopup('This is Littleton, CO.<br>OPisanie</br>').addTo(place),
-				L.marker([latit + 0.015, longit - 0.015], {icon: action}).bindPopup('This is Denver, CO.').addTo(place),
-				L.marker([latit - 0.015, longit + 0.015], {icon: action}).bindPopup('This is Aurora, CO.').addTo(place),
-				L.marker([latit - 0.015, longit - 0.015], {icon: action}).bindPopup('This is Golden, CO.').addTo(place);
-
-				var action = new L.LayerGroup();
-
-				L.marker([latit + 0.0215, longit + 0.0215], {icon: place_ic}).bindPopup('This is Littleton, CO.').addTo(action),
-				L.marker([latit + 0.0215, longit - 0.0215], {icon: place_ic}).bindPopup('This is Denver, CO.').addTo(action),
-				L.marker([latit - 0.0215, longit + 0.0215], {icon: place_ic}).bindPopup('This is Aurora, CO.').addTo(action),
-				L.marker([latit - 0.0215, longit - 0.0215], {icon: place_ic}).bindPopup('This is Golden, CO.').addTo(action);
 				mymap = L.map('mapid',{
 					center: [latit, longit],
 					zoom: 12,
-					layers: [action, place]
+					// layers: [action, place]
 				});
+				// var action = new L.LayerGroup();
+
+				var arr = JSON.parse(httpGet("load_markers.php"));
+				console.log(arr);
+				var size = Object.keys(arr).length;
+				console.log(size);
+
+				var i = 0;
+				while (i < size) {
+					var geo = arr[i].geopos;
+					var nlat = geo.split(" ")[0];
+					var nlon = geo.split(" ")[1];
+					var name = arr[i].description;
+					console.log(name);
+					console.log(geo);
+				L.marker([nlat, nlon], {icon: action}).bindPopup(name).addTo(mymap),
+
+			i = i + 1;
+				}
+
+
+				// L.marker([latit + 0.015, longit + 0.015], {icon: action}).bindPopup('This is Littleton, CO.<br>OPisanie</br>').addTo(place),
+				// L.marker([latit + 0.015, longit - 0.015], {icon: action}).bindPopup('This is Denver, CO.').addTo(place),
+				// L.marker([latit - 0.015, longit + 0.015], {icon: action}).bindPopup('This is Aurora, CO.').addTo(place),
+				// L.marker([latit - 0.015, longit - 0.015], {icon: action}).bindPopup('This is Golden, CO.').addTo(place);
+
+
+				// L.marker([latit + 0.0215, longit + 0.0215], {icon: place_ic}).bindPopup('This is Littleton, CO.').addTo(action),
+				// L.marker([latit + 0.0215, longit - 0.0215], {icon: place_ic}).bindPopup('This is Denver, CO.').addTo(action),
+				// L.marker([latit - 0.0215, longit + 0.0215], {icon: place_ic}).bindPopup('This is Aurora, CO.').addTo(action),
+				// L.marker([latit - 0.0215, longit - 0.0215], {icon: place_ic}).bindPopup('This is Golden, CO.').addTo(action);
 
 				L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 					maxZoom: 18,
@@ -276,8 +302,8 @@
 				var baseLayers = {
 				}
 
-				var overlays = {"Места": place, "События" : action};
-				L.control.layers(baseLayers, overlays).addTo(mymap);
+				// var overlays = {"Места": place, "События" : action};
+				// L.control.layers(baseLayers, overlays).addTo(mymap);
 				var greenIcon = L.icon({
 			    iconUrl: 'png/hat.png',
 			    iconSize:     [20, 35],
@@ -401,7 +427,7 @@
        });
 // reloadmsg();
 // putAddress();
-window.setInterval(putAddress(), 300);
+// window.setInterval(putAddress(), 300);
       //  setInterval(reloadmsg, 2500);
 
   });
