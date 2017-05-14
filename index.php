@@ -9,6 +9,8 @@
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ==" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg==" crossorigin=""></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -113,9 +115,7 @@
 									</div>
 								</div>
 							</div>
-
 							<input type="submit" value="Register" class="btn btn-info btn-block">
-
 						</form>
 					</div>
 				</div>
@@ -139,32 +139,25 @@
 					<div class="panel-body">
 						<div id="map"></div>
 			<script>
-				var map = new GMaps({
-					el: '#map',
-					lat: 50.448069,
-					lng:  30.529913
-				});
-			</script>
-		<script>
-		GMaps.geolocate({
-	 success: function(position) {
-		 map.setCenter(position.coords.latitude, position.coords.longitude);
-		map.addMarker({
-				 lat: position.coords.latitude,
-				 lng: position.coords.longitude,
-				 title: 'location',
-				 infoWindow: {
-					content: '<p>My location!</p>'
-				 }
-	});
-	},
-	 error: function(error) {
-		 alert('Geolocation failed: '+error.message);
-	 },
-	 not_supported: function() {
-		 alert("Your browser does not support geolocation");
-	 }
- });
+			navigator.geolocation.getCurrentPosition(function(position) {
+			  latit = position.coords.latitude;
+			  longit = position.coords.longitude;
+			var mymap2 = L.map('map').setView([latit, longit], 13);
+			L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicmF6b3JlZGdlIiwiYSI6ImNqMm8wdW1vMjAwMmsyd2xrazdyY3FvcTYifQ.LGyAHAS_AxFwUh4ytOwC5Q', {
+				maxZoom: 18,
+				attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+					'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+					'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+				id: 'mapbox.streets'
+}).addTo(mymap2);
+
+	var greenIcon = L.icon({
+		iconUrl: 'png/hat.png',
+		iconSize:     [20, 35]
+});
+L.marker([latit, longit], {icon: greenIcon}).addTo(mymap2)
+	.bindPopup("<b>My location!</b></a>").openPopup();
+})
  </script>
 					</div>
 				</div>
