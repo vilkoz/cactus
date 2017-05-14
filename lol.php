@@ -16,7 +16,7 @@ session_start();
 		print("<label>  Event name</label><span>");
 		print($value['description']);
 		print("</span>");
-		print("</br><label>  geoposition</label><span class='geopos'>");
+		print("</br><label>  adress: </label><span class='geopos'>");
 		print($value['geopos']);
 		print("</span>");
 		print("<br><label>  Date</label><span>");

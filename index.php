@@ -44,7 +44,7 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
 	        <li><a href="#">Profile<span class="sr-only">(current)</span></a></li>
-	        <li class="active"><a href="#">Find Event</a></li>
+	        <li class="active"><a href="event.php">Find Event</a></li>
 			<li><a href="#">About us</a></li>
 	      </ul>
 				<?php

@@ -227,13 +227,14 @@ function list_preferences()
 
 function add_event($idp, $date, $geopos, $descr, $icon)
 {
-  check_logged();
-  $uid = get_uid();
-  $time = date("Y-m-d H:i:s", time());
+  // check_logged();
+  // $uid = get_uid();
+  $uid = 1;
+  $time = $date;
   if ($idp == 0)
   {
-      if (!$res = DB::query(" INSERT INTO `events` (`id`, `idp`, `date`, `geopos`, `icon`, `description`, `cr_id`)
-                              VALUES (NULL, 0, 0, '".$time."', '".$geopos."', '".DB::esc($icon)."', '".DB::esc($descr)."', ".$uid.");"))
+      if (!$res = DB::query("INSERT INTO `events` (`id`, `idp`, `date`, `geopos`, `description`, `idu`, `icon`)
+          VALUES (NULL, '0', '".$time."', '".$geopos."', '".DB::esc($descr)."', '".$uid."', '".$icon."');" ))
       {
         throw new Exception("DATABASE ERROE IN edit_prefr");
       }
@@ -284,13 +285,13 @@ function list_events()
 			}
 	foreach ($events as $key => $value) {
 		print("<div class='event' >");
-		print("<label>  Event name</label><span>");
+		print("<label>  Event name </label><span>");
 		print($value['description']);
 		print("</span>");
-		print("</br><label>  geoposition</label><span class='geopos'>");
+		print("</br><label>  adress </label><span class='geopos'>");
 		print($value['geopos']);
 		print("</span>");
-		print("<br><label>  Date</label><span>");
+		print("<br><label>  Date </label><span>");
 		print($value['date']);
 		print("<br></span>");
 		print("<input type='button' value='JOIN'></div>");
