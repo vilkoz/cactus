@@ -1,86 +1,165 @@
 <?php
-session_start();
-require_once 'Site.class.php';
-require_once 'DB.class.php';
-require_once 'Chat.class.php';
-DB::init();
- ?>
- <!DOCTYPE html>
- <html>
-   <head>
-     <meta charset="utf-8">
-     <title>check</title>
-   </head>
-   <body>
-<?php
-    if (key_exists('login', $_SESSION))
-      echo "Welcome, <b>{$_SESSION['login']}</b><br/>";
+	session_start();
 ?>
-     <b>login</b>
-     <form action="ajax.php?action=login" method="post">
-       <input type="text" name="login" value="">
-       <input type="text" name="pass" value="">
-       <input type="submit" name="submit" value="OK">
-     </form>
-     <b>register</b>
-     <form action="ajax.php?action=register" method="post">
-       <input type="text" name="login" value="">
-       <input type="text" name="pass" value="">
-       <input type="submit" name="submit" value="OK">
-     </form>
-     <form action="ajax.php?action=logout" method="post">
-       <b>logout</b>
-       <input type="submit" name="submit" value="OK">
-     </form>
-     <div class="contein">
-      <?php
-      // Site::viewAllGames();
-       ?>
-     </div>
-     <br>
-     <br>
-     <div class="chat">
-       <div id="msg_list">
 
-       </div>
-       <input type="text" name="msg" value="" id="msg">
-       <input type="button" name="send" value="send" id="send">
-     </div>
-     <script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
-  <script type="text/javascript">
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+ 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="css/index.css">
+	<title>Leisure Club</title>
 
-     $(document).ready(function(){
-       function reloadmsg() {
-         $.ajax({
-           type:"GET",
-           url: "ajax.php",
-           data: "action=loadMsg",
-           success: function(data){
-             $("#msg_list").html(data);
-           }
-         });
-       }
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7AXb4WhqnAjNyJyB-cXSPU51kxmeq_GU"></script>
+ 	<script src="gmaps.js"></script>
 
-       $("#send").click(function(){
-         var value = $("#msg").val();
-         $("#msg").val("");
-         $.ajax({
-           type:"GET",
-           url: "ajax.php",
-           data: "action=sendMsg&text=" + value ,
-           success: function(data){
-             $("#msg_list").html(data);
-           }
-         });
-        return false;
-       });
+ 	<style>
+        #map {
+         height: 325px;
+         width: 100%;
+        }
+		</style>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+	  <div class="container-fluid">
 
-       setInterval(reloadmsg, 2500);
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">
+			  <img src="logo.png" class="logo">
+			  <!-- <span class="brand-name">Leisure Club</span> -->
+		  </a>
+	    </div>
 
-  });
-  </script>
-   </body>
- </html>
+
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+	        <li class="active"><a href="#">Profile<span class="sr-only">(current)</span></a></li>
+	        <li><a href="#">Find Event</a></li>
+			<li><a href="#">About us</a></li>
+	        <!-- <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+	          <ul class="dropdown-menu" role="menu">
+	            <li><a href="#">Action</a></li>
+	            <li><a href="#">Another action</a></li>
+	            <li><a href="#">Something else here</a></li>
+	            <li class="divider"></li>
+	            <li><a href="#">Separated link</a></li>
+	            <li class="divider"></li>
+	            <li><a href="#">One more separated link</a></li>
+	          </ul>
+	        </li> -->
+	      </ul>
+	      <form id="signin" class="navbar-form navbar-right" role="form">
+	                        <div class="input-group">
+	                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+	                            <input id="email" type="email" class="form-control" name="email" value="" placeholder="Email Address">
+	                        </div>
+
+	                        <div class="input-group">
+	                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+	                            <input id="password" type="password" class="form-control" name="password" value="" placeholder="Password">
+	                        </div>
+
+	                        <button type="submit" class="btn btn-primary">Login</button>
+	       </form>
+	    </div>
+	  </div>
+	</nav>
+	<div class="wrap">
+		<div class="row panels">
+			<div class="col-md-1">
+			</div>
+			<div class="col-md-5">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						1
+					</div>
+					<div class="panel-body">
+						qwe
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						2
+					</div>
+					<div class="panel-body">
+						<div id="map"></div>
+ 	    <script>
+ 	      var map = new GMaps({
+ 	        el: '#map',
+ 	        lat: 50.448069,
+ 	        lng:  30.529913
+ 	      });
+ 	    </script>
+ 		<script>
+ 		GMaps.geolocate({
+   success: function(position) {
+     map.setCenter(position.coords.latitude, position.coords.longitude);
+	 	map.addMarker({
+         lat: position.coords.latitude,
+         lng: position.coords.longitude,
+         title: 'location',
+         infoWindow: {
+          content: '<p>My location!</p>'
+         }
+	});
+  },
+   error: function(error) {
+     alert('Geolocation failed: '+error.message);
+   },
+   not_supported: function() {
+     alert("Your browser does not support geolocation");
+   }
+ });
+ </script>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-1">
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		<div class="container">
+			<div class="row">
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="row">
+				<div class="col-lg-4">
+				</div>
+				<div class="col-lg-4">
+					<span>
+						Contact us:
+						<form action="index.php" method="get">
+							<div style="margin: 0 auto;">
+							<label>Name</label>
+							<input type="text" name="name"><br>
+							<label>Question</label>
+							<input type="text" name="text">
+							<input type="submit" name="submit">
+							</div>
+						</form>
+					</span>
+				</div>
+				<div class="col-lg-4">
+					<span class="avsoon">Avilable soon!</span>
+					<img class="app" src="downloditunes.png" height="auto">
+					<img class="app"src="googleplay.png" height="auto">
+				</div>
+			</div>
+			<p class="pull-left">LC Leisure Club all rights reserved</p>
+		</div>
+	</div>
+</body>
+<html>
