@@ -1,4 +1,6 @@
 <?php
+  header("Content-Type: text/html; charset=utf-8");
+	require_once 'Site.class.php';
 	session_start();
 	if (!key_exists('login', $_SESSION) || !isset($_SESSION['login']))
 	{
@@ -204,26 +206,26 @@
 		</div>
 	</div> -->
 
+<div class="row">
 	<div class="col-lg-6">
-		<div style="padding-left: 6%">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				List events
 			</div>
-			<div class="panel-body" id="msg_list">
-				Loading...
+			<div class="panel-body" id="msg_list" style="overflow-y: scroll; height: 357px">
+				<?php list_events(); ?>
+				<!-- Loading... -->
 			</div>
 		</div>
 	</div>
-	</div>
 
 	<div class="col-lg-6">
-		<div style="padding-right: 6%">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				Events on map
 			</div>
-			<div id="mapid" style="height: 357px"></div>
+			<div id="mapid" style="height: 357px; width: 100%" class="col-lg-5">
+			</div>
 			<script>
 				var mymap;
 			  navigator.geolocation.getCurrentPosition(function(position) {
@@ -294,12 +296,10 @@
 			</script>
 		</div>
 	</div>
-	</div>
 
 
 
-	<div class="col-md-1" >
-	</div>
+</div>
 </div>
 </div>
 <div class="footer">
@@ -349,6 +349,43 @@
          });
        }
 
+			 function httpGet(theUrl)
+			 {
+				 var xmlHttp = new XMLHttpRequest();
+				 xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+				 xmlHttp.send( null );
+				 return xmlHttp.responseText;
+			 }
+
+
+			 function putAddress()
+			 {
+				//  var long_lat = $(".geopos").html();
+				var long_lat = document.getElementsByClassName("geopos");
+				var ret_array = [];
+				var i = 0;
+				var size = Object.keys(long_lat).length;
+				while (i < size) {
+					ret_array.push(long_lat[i].textContent);
+					i = i + 1;
+				}
+				i = 0;
+				while (i < size)
+				{
+					var tmp = ret_array[i].split(" ");
+					var long = tmp[1];
+					var lat = tmp[0];
+					var ret = httpGet("http://open.mapquestapi.com/nominatim/v1/reverse.php?key=20BBM0Ys4yAKjB9BSm5ytUwx5Va8Nanq&format=json&lat=" + lat + "&lon=" + long);
+					ret = JSON.parse(ret).display_name;
+					long_lat[i].textContent = ret;
+					i = i + 1;
+				}
+
+			 }
+
+			//  http://open.mapquestapi.com/nominatim/v1/reverse.php?key=20BBM0Ys4yAKjB9BSm5ytUwx5Va8Nanq&format=json&lat=51.521435&lon=-0.162714
+			//  reloadmsg();
+
        $("#send").click(function(){
          var value = $("#msg").val();
          $("#msg").val("");
@@ -362,8 +399,10 @@
          });
         return false;
        });
-
-       setInterval(reloadmsg, 2500);
+// reloadmsg();
+// putAddress();
+window.setInterval(putAddress(), 300);
+      //  setInterval(reloadmsg, 2500);
 
   });
 	</script>

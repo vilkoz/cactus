@@ -80,7 +80,7 @@ try
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
 	        <li class="active"><a href="#">Profile<span class="sr-only">(current)</span></a></li>
-	        <li><a href="#">Find Event</a></li>
+	        <li><a href="event.php">Find Event</a></li>
 			<li><a href="#">About us</a></li>
 	        <!-- <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>

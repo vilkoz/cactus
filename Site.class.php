@@ -272,6 +272,32 @@ function edit_place_tags($value='')
 {
 }
 
+function list_events()
+{
+  DB::init();
+	$events = array();
+			if ($res = DB::query("SELECT * FROM events")) {
+				$tmp = $res;
+				while ($row = $tmp->fetch_assoc()) {
+					array_push($events, $row);
+				}
+			}
+	foreach ($events as $key => $value) {
+		print("<div class='event' >");
+		print("<label>  Event name</label><span>");
+		print($value['description']);
+		print("</span>");
+		print("</br><label>  geoposition</label><span class='geopos'>");
+		print($value['geopos']);
+		print("</span>");
+		print("<br><label>  Date</label><span>");
+		print($value['date']);
+		print("<br></span>");
+		print("<input type='button' value='JOIN'></div>");
+		print("<hr>");
+	}
+}
+
 function logout()
 {
   header("Location: index.php");
