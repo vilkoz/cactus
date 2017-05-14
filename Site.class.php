@@ -184,13 +184,13 @@ function list_interests()
   {
     throw new Exception("No interests found");
   }
-  // $return = "";
+  $return = "";
   while ($new = $res->fetch_assoc())
   {
     $name = $new['name'];
     $id = $new['id'];
     if (!in_array($id, $user_prefs))
-      $return .= "<div class='list_inter'>".$name."<input type='submit' value='".$id."'></div></br>";
+      $return .= "<div class='list_inter'>".$name."<input type='submit' value='".$id."' id='list_inter'></div>";
   }
   return ($return);
 }
@@ -215,7 +215,7 @@ function list_preferences()
   {
     $name = $prefs['name'];
     $id = $prefs['id'];
-    $return .= "<div class='list_pref'>".$name."<input type='submit' value='".$id."'></div></br>";
+    $return .= "<div class='list_pref'>".$name."<input type='submit' value='".$id."' id='list_pref'></div>";
   }
   return $return;;
 }
