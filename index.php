@@ -41,8 +41,8 @@
 	    </div>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
-	        <li class="active"><a href="#">Profile<span class="sr-only">(current)</span></a></li>
-	        <li><a href="#">Find Event</a></li>
+	        <li><a href="#">Profile<span class="sr-only">(current)</span></a></li>
+	        <li class="active"><a href="#">Find Event</a></li>
 			<li><a href="#">About us</a></li>
 	      </ul>
 				<?php
@@ -89,7 +89,39 @@
 		<div class="row panels">
 			<div class="col-md-1">
 			</div>
-			<div class="col-md-5">
+			<div class="col-md-5" >
+				<div class="panel panel-default" style="min-height: 400px;">
+					<div class="panel-heading">
+						Register
+					</div>
+					<div class="panel-body">
+						<form role="form" action="ajax.php?action=register" method="post">
+
+							<div class="form-group">
+								<input type="text" name="login" id="email" class="form-control input-sm" placeholder="Email Address">
+							</div>
+
+							<div class="row">
+								<div class="col-xs-6 col-sm-6 col-md-6">
+									<div class="form-group">
+										<input type="password" name="pass" id="password" class="form-control input-sm" placeholder="Password">
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-6 col-md-6">
+									<div class="form-group">
+										<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
+									</div>
+								</div>
+							</div>
+
+							<input type="submit" value="Register" class="btn btn-info btn-block">
+
+						</form>
+					</div>
+				</div>
+
+			</div>
+			<!-- <div class="col-md-5">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						1
@@ -98,7 +130,7 @@
 						qwe
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<div class="col-md-5">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -140,7 +172,7 @@
 			<div class="col-md-1">
 			</div>
 		</div>
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col-md-1">
 			</div>
 
@@ -178,7 +210,11 @@
 			</div>
 			<div class="col-md-1">
 			</div>
-		</div>
+		</div> -->
+	</div>
+	<div style="clear:both">
+
+	</div>
 	<div class="footer">
 		<div class="container">
 			<div class="row">
@@ -189,10 +225,6 @@
 			</div>
 			<p class="pull-left">LC Leisure Club all rights reserved</p>
 		</div>
-	</div>
-	</div>
-	<div style="clear:both">
-
 	</div>
 </body>
 <html>
