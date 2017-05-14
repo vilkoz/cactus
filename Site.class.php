@@ -5,7 +5,7 @@ require_once 'DB.class.php';
  */
 function login($login, $pass)
 {
-  header("Location: index.php");
+  header("Location: event.php");
   if (!$login || !$pass)
     throw new Exception("Please fill all fields");
   if (!$res = DB::query("SELECT * FROM `users` WHERE `login` LIKE BINARY '"
